@@ -1,11 +1,12 @@
 import './App.css';
+import { TestForm } from './components/testForm/ui/testForm';
 
 function App() {
 
 
   return (
     <>
-      <h1>Hello World</h1>
+      <TestForm />
     </>
   );
 }

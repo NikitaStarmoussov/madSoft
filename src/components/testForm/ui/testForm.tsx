@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { classNames } from '../../../utils/classNames';
 import { testMockData } from '../../../data/test-mock.data';
-import { TestChoice } from '../../testChoice';
+import { TestQuestion } from '../../testQuestion/';
+
 
 interface TestFormProps {
     className?: string;
@@ -23,12 +24,7 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
     return (
         <form className={classNames("", {}, [className])} onSubmit={handleSubmit}>
             <h1>Test</h1>
-            <p>{question}</p>
-            <ul>
-                {testMockData.data[0].data.choices.map((choice) => (
-                    <TestChoice key={choice} choice={choice} handler={handleAnswerChange} />
-                ))}
-            </ul>
+            <TestQuestion question={question} handleAnswerChange={handleAnswerChange} />
             <button type="submit">Ответить</button>
         </form>
     );

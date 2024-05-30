@@ -6,10 +6,12 @@ import { QuestionsContext } from '../../../providers/questionsContext';
 
 interface TestFormProps {
     className?: string;
+    isStarted: boolean;
+    setIsStarted: (isStarted: boolean) => void
 }
 
-export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
-    const [isStarted, setIsStarted] = useState(false);
+export const TestForm: React.FC<TestFormProps> = ({ className = "", isStarted, setIsStarted }) => {
+
     const state = useContext(QuestionsContext);
     const [answer, setAnswer] = useState("");
     //todo number check and correct data
@@ -32,9 +34,7 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
         }
     };
 
-    const handleStartTest = () => {
-        setIsStarted(true);
-    };
+
 
     useEffect(() => {
         if (isStarted) {
@@ -68,24 +68,18 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
 
     return (
         <>
-            {!isStarted && (
-                <div>
-                    <h2>Описание теста</h2>
-                    <p>Вот описание теста, которое вы можете добавить.</p>
-                    <button onClick={handleStartTest}>Начать тест</button>
-                </div>
-            )}
-            {isStarted && (
-                <div>
-                    <p>Осталось времени: {formatTime(timeLeft)}</p>
-                    <form className={classNames("", {}, [className])} onSubmit={handleSubmit}>
-                        <h1>Тест "название"</h1>
-                        <h2>Вопрос {state.currentQuestion + 1}</h2>
-                        <TestQuestion handleAnswerChange={handleAnswerChange} />
-                        <button type="submit">Ответить</button>
-                    </form>
-                </div>
-            )}
+
+
+            <div>
+                <p>Осталось времени: {formatTime(timeLeft)}</p>
+                <form className={classNames("", {}, [className])} onSubmit={handleSubmit}>
+                    <h1>Тест "название"</h1>
+                    <h2>Вопрос {state.currentQuestion + 1}</h2>
+                    <TestQuestion handleAnswerChange={handleAnswerChange} />
+                    <button type="submit">Ответить</button>
+                </form>
+            </div>
+
         </>
     );
 };

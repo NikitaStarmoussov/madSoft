@@ -1,18 +1,19 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { classNames } from '../../../utils/classNames';
 
 import { TestQuestion } from '../../testQuestion/';
 import { QuestionsContext } from '../../../providers/questionsContext';
-
 
 interface TestFormProps {
     className?: string;
 }
 
 export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
-
-    const [answer, setAnswer] = useState("");
+    const [isStarted, setIsStarted] = useState(false);
     const state = useContext(QuestionsContext);
+    const [answer, setAnswer] = useState("");
+    //todo number check and correct data
+    const [timeLeft, setTimeLeft] = useState(Number(state.data.time) * 60); // 15 минут в секундах
 
     const handleAnswerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAnswer(event.target.value);
@@ -22,19 +23,64 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
         event.preventDefault();
         if (state.data.data.length - 1 === state.currentQuestion) {
             alert(`Вы выбрали ответ: ${answer}` + "Вопросы закончились");
+            setIsStarted(false);
         } else {
             state.setCurrentQuestion(state.currentQuestion + 1);
             alert(`Вы выбрали ответ: ${answer}`);
         }
     };
 
+    const handleStartTest = () => {
+        setIsStarted(true);
+    };
+
+    useEffect(() => {
+        if (isStarted) {
+            const timer = setInterval(() => {
+                setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+            }, 1000);
+
+            return () => {
+                clearInterval(timer);
+            };
+        }
+    }, [isStarted]);
+
+    useEffect(() => {
+        if (timeLeft === 0) {
+            //todo add correct test finish
+            alert("Тест закончен");
+            setIsStarted(false);
+        }
+    }, [timeLeft]);
+
+    const formatTime = (time: number) => {
+        const hours = Math.floor(time / 3600);
+        const minutes = Math.floor((time % 3600) / 60);
+        const seconds = time % 60;
+        return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
+    };
+
     return (
-        <form className={classNames("", {}, [className])} onSubmit={handleSubmit}>
-            <h1>Test</h1>
-            <h2>Вопрос {state.currentQuestion + 1}</h2>
-            <TestQuestion handleAnswerChange={handleAnswerChange} />
-            <button type="submit">Ответить</button>
-        </form>
+        <>
+            {!isStarted && (
+                <div className="description-block">
+                    <h2>Описание теста</h2>
+                    <p>Вот описание теста, которое вы можете добавить.</p>
+                    <button onClick={handleStartTest}>Начать тест</button>
+                </div>
+            )}
+            {isStarted && (
+                <div>
+                    <p>Осталось времени: {formatTime(timeLeft)}</p>
+                    <form className={classNames("", {}, [className])} onSubmit={handleSubmit}>
+                        <h1>Тест "название"</h1>
+                        <h2>Вопрос {state.currentQuestion + 1}</h2>
+                        <TestQuestion handleAnswerChange={handleAnswerChange} />
+                        <button type="submit">Ответить</button>
+                    </form>
+                </div>
+            )}
+        </>
     );
 };
-

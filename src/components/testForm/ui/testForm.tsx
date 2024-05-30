@@ -7,10 +7,11 @@ import { QuestionsContext } from '../../../providers/questionsContext';
 interface TestFormProps {
     className?: string;
     isStarted: boolean;
-    setIsStarted: (isStarted: boolean) => void
+    setIsStarted: (isStarted: boolean) => void;
+    setIsTestFinished: (isTestFinished: boolean) => void;
 }
 
-export const TestForm: React.FC<TestFormProps> = ({ className = "", isStarted, setIsStarted }) => {
+export const TestForm: React.FC<TestFormProps> = ({ className = "", isStarted, setIsStarted, setIsTestFinished }) => {
 
     const state = useContext(QuestionsContext);
     const [answer, setAnswer] = useState("");
@@ -24,18 +25,20 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "", isStarted, s
     };
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        const question = state.data.data[state.currentQuestion].data.question
         event.preventDefault();
+        state.setUserAnswers([...state.userAnswers, { question: question, answer: answer }]);
         if (state.data.data.length - 1 === state.currentQuestion) {
-            alert(`Вы выбрали ответ: ${answer}` + "Вопросы закончились");
+            console.log(state.userAnswers)
+            setIsTestFinished(true);
             setIsStarted(false);
         } else {
             state.setCurrentQuestion(state.currentQuestion + 1);
-            alert(`Вы выбрали ответ: ${answer}`);
         }
     };
 
 
-
+    //todo timer logic and ui to another component
     useEffect(() => {
         if (isStarted) {
             const timer = setInterval(() => {

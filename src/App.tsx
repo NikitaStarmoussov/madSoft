@@ -3,9 +3,12 @@ import './App.css';
 import { TestForm } from './components/testForm/';
 import { QuestionsProvider } from './providers/questionsContext';
 import { TestDescription } from './components/testDescription';
+import { TestFinish } from './components/testFinish';
 
 function App() {
+
   const [isStarted, setIsStarted] = useState(false);
+  const [isTestFinished, setIsTestFinished] = useState(false);
   const handleStartTest = () => {
     setIsStarted(true);
   };
@@ -13,7 +16,9 @@ function App() {
   return (
     <>
       <QuestionsProvider>
-        {!isStarted ? <TestDescription handler={handleStartTest} /> : <TestForm isStarted={isStarted} setIsStarted={setIsStarted} />}
+        {isStarted && !isTestFinished && <TestForm isStarted={isStarted} setIsStarted={setIsStarted} setIsTestFinished={setIsTestFinished} />}
+        {isTestFinished && <TestFinish />}
+        {!isStarted && !isTestFinished && <TestDescription handler={handleStartTest} />}
       </QuestionsProvider>
     </>
   );

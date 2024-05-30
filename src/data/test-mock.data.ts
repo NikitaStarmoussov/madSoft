@@ -5,7 +5,7 @@ export const testMockData: testData = {
     time: "15",
     data: [
         {
-            type: questionTypes.oneChoice,
+            type: questionTypes.multipleChoice,
             data: {
                 question: "question 1",
                 choices: ["a", "b", "c", "d"],

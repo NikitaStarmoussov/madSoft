@@ -1,4 +1,4 @@
-export enum questionTypes { oneChoice = "one choice" }
+export enum questionTypes { oneChoice = "one choice", multipleChoice = "multiple choice" }
 
 export type question = {
     type: questionTypes,

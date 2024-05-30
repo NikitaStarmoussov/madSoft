@@ -5,40 +5,40 @@ export const testMockData: testData = {
     time: "15",
     data: [
         {
-            type: questionTypes.multipleChoice,
+            type: questionTypes.shortTextAnswer,
             data: {
                 question: "question 1",
-                choices: ["a", "b", "c", "d"],
+                choices: null,
             }
         },
         {
-            type: questionTypes.oneChoice,
+            type: questionTypes.multipleChoiceAnswer,
             data: {
                 question: "question 2",
                 choices: ["a", "b", "c", "d"],
             }
         },
         {
-            type: questionTypes.oneChoice,
+            type: questionTypes.oneChoiceAnswer,
             data: {
                 question: "question 3",
                 choices: ["a", "b", "c", "d"],
             }
         },
-        {
-            type: questionTypes.oneChoice,
-            data: {
-                question: "question 4",
-                choices: ["a", "b", "c", "d"],
-            }
-        },
-        {
-            type: questionTypes.oneChoice,
-            data: {
-                question: "question 5",
-                choices: ["a", "b", "c", "d"],
-            }
-        }
+        // {
+        //     type: questionTypes.oneChoice,
+        //     data: {
+        //         question: "question 4",
+        //         choices: ["a", "b", "c", "d"],
+        //     }
+        // },
+        // {
+        //     type: questionTypes.oneChoice,
+        //     data: {
+        //         question: "question 5",
+        //         choices: ["a", "b", "c", "d"],
+        //     }
+        // }
     ]
 
 }

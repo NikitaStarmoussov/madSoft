@@ -1,5 +1,6 @@
 import { FC } from 'react'
-import { classNames } from '../../../../utils/classNames'
+import { classNames } from '../../../../../utils/classNames'
+
 
 interface OneChoiceProps {
     handler: (event: React.ChangeEvent<HTMLInputElement>) => void,

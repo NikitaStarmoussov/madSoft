@@ -1,7 +1,7 @@
 import { FC } from 'react'
 import { classNames } from '../../../utils/classNames'
 import { testMockData } from '../../../data/test-mock.data'
-import { TestChoice } from '../../testChoice'
+import { TestChoice } from '../../testAnswer'
 
 
 interface TestQuestionProps {
@@ -10,13 +10,14 @@ interface TestQuestionProps {
     handleAnswerChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-export const TestQuestion: FC<TestQuestionProps> = ({ question, handleAnswerChange, className = "" }) => {
+export const TestQuestion: FC<TestQuestionProps> = ({ handleAnswerChange, className = "" }) => {
+    const data = testMockData.data[0].data;
     return <div className={classNames("", {}, [className])}>
-        <p>{question}</p>
+        <p>{data.question}</p>
         <ul>
-            {testMockData.data[0].data.choices.map((choice) => (
-                <TestChoice key={choice} type={testMockData.data[0].type} choice={choice} handler={handleAnswerChange} />
-            ))}
+            {
+                <TestChoice handler={handleAnswerChange} />
+            }
         </ul>
     </div>
 }

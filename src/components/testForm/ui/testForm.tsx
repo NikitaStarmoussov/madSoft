@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { classNames } from '../../../utils/classNames';
-import { testMockData } from '../../../data/test-mock.data';
+
 import { TestQuestion } from '../../testQuestion/';
+import { QuestionsContext } from '../../../providers/questionsContext';
 
 
 interface TestFormProps {
@@ -9,7 +10,7 @@ interface TestFormProps {
 }
 
 export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
-    const [question] = useState(testMockData.data[0].data.question);
+
     const [answer, setAnswer] = useState("");
 
     const handleAnswerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +25,7 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
     return (
         <form className={classNames("", {}, [className])} onSubmit={handleSubmit}>
             <h1>Test</h1>
-            <TestQuestion question={question} handleAnswerChange={handleAnswerChange} />
+            <TestQuestion handleAnswerChange={handleAnswerChange} />
             <button type="submit">Ответить</button>
         </form>
     );

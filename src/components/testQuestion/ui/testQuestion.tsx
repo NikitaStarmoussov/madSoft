@@ -1,19 +1,23 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 import { classNames } from '../../../utils/classNames'
-import { testMockData } from '../../../data/test-mock.data'
+
 import { TestChoice } from '../../testAnswer'
+import { QuestionsContext } from '../../../providers/questionsContext'
 
 
 interface TestQuestionProps {
     className?: string,
-    question: string,
+
     handleAnswerChange: (event: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 export const TestQuestion: FC<TestQuestionProps> = ({ handleAnswerChange, className = "" }) => {
-    const data = testMockData.data[0].data;
+    const data = useContext(QuestionsContext);
+    //todo refactor this
+    const question = data.data.data[data.currentQuestion].data.question;
+
     return <div className={classNames("", {}, [className])}>
-        <p>{data.question}</p>
+        <p>{question}</p>
         <ul>
             {
                 <TestChoice handler={handleAnswerChange} />

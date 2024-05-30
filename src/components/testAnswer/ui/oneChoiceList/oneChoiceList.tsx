@@ -10,7 +10,7 @@ interface OneChoiceListProps {
 
 export const OneChoiceList: FC<OneChoiceListProps> = ({ handler, choices, className = "" }) => {
     return (<ul className={classNames("", {}, [className])}>
-        {choices.map((choice) => <OneChoice handler={handler} choice={choice} className={className} />)}
+        {choices.map((choice) => <OneChoice key={choice} handler={handler} choice={choice} className={className} />)}
     </ul>
     )
 

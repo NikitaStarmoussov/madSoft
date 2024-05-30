@@ -10,7 +10,7 @@ interface MultipleChoiceListProps {
 
 export const MultipleChoiceList: FC<MultipleChoiceListProps> = ({ handler, choices, className = "" }) => {
     return (<ul>
-        {choices.map((choice) => <MultipleChoice handler={handler} choice={choice} className={className} />)}
+        {choices.map((choice) => <MultipleChoice key={choice} handler={handler} choice={choice} className={className} />)}
     </ul>
     )
 }

@@ -1,5 +1,5 @@
 import './App.css';
-import { TestForm } from './components/testForm/ui/testForm';
+import { TestForm } from './components/testForm/';
 
 function App() {
 

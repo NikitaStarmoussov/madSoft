@@ -6,7 +6,7 @@ interface TestFormProps {
     className?: string;
 }
 
-const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
+export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
     const [question] = useState(testMockData.data[0].data.question);
     const [answer, setAnswer] = useState("");
 
@@ -36,4 +36,3 @@ const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
     );
 };
 
-export default TestForm;

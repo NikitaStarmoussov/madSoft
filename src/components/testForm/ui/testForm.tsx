@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { classNames } from '../../../utils/classNames';
 import { testMockData } from '../../../data/test-mock.data';
+import { TestChoice } from '../../testChoice';
 
 interface TestFormProps {
     className?: string;
@@ -25,10 +26,7 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
             <p>{question}</p>
             <ul>
                 {testMockData.data[0].data.choices.map((choice) => (
-                    <li key={choice}>
-                        <input type="radio" name="answer" value={choice} onChange={handleAnswerChange} />
-                        <label htmlFor="answer1">{choice}</label>
-                    </li>
+                    <TestChoice key={choice} choice={choice} handler={handleAnswerChange} />
                 ))}
             </ul>
             <button type="submit">Ответить</button>

@@ -13,7 +13,9 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
     const state = useContext(QuestionsContext);
     const [answer, setAnswer] = useState("");
     //todo number check and correct data
-    const [timeLeft, setTimeLeft] = useState(Number(state.data.time) * 60); // 15 минут в секундах
+    const startTime = new Date().getTime()
+    const timeLimit = Number(state.data.time) * 60
+    const [timeLeft, setTimeLeft] = useState(timeLimit); // 15 минут в секундах
 
     const handleAnswerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAnswer(event.target.value);
@@ -37,7 +39,10 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
     useEffect(() => {
         if (isStarted) {
             const timer = setInterval(() => {
-                setTimeLeft((prevTimeLeft) => prevTimeLeft - 1);
+                const timeNow = new Date().getTime();
+                setTimeLeft(() => {
+                    return timeLimit - Math.round((timeNow - startTime) / 1000);
+                });
             }, 1000);
 
             return () => {
@@ -64,7 +69,7 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
     return (
         <>
             {!isStarted && (
-                <div className="description-block">
+                <div>
                     <h2>Описание теста</h2>
                     <p>Вот описание теста, которое вы можете добавить.</p>
                     <button onClick={handleStartTest}>Начать тест</button>

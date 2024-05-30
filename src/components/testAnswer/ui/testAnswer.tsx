@@ -2,7 +2,6 @@ import { FC, useContext } from 'react'
 import { classNames } from '../../../utils/classNames'
 import { questionTypes } from '../../../types/tests.types'
 import { ShortTextAnswer } from './shortTextAnswer/shortTextAnswer'
-import { testMockData } from '../../../data/test-mock.data'
 import { MultipleChoiceList } from './multipleChoiceList/multipleChoiceList'
 import { OneChoiceList } from './oneChoiceList/oneChoiceList'
 import { QuestionsContext } from '../../../providers/questionsContext'
@@ -19,7 +18,7 @@ function getChoiceComponentByType(handler: (event: React.ChangeEvent<HTMLInputEl
     const data = useContext(QuestionsContext);
     //todo refactor this
     const curData = data.data.data[data.currentQuestion];
-    // const question  = data.data.data[data.currentQuestion].data.question;
+
 
     //todo when adding a new type so that the typescript swears
     switch (curData.type) {

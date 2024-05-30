@@ -13,7 +13,6 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
 
     const [answer, setAnswer] = useState("");
     const state = useContext(QuestionsContext);
-    // const { currentQuestion, setCurrentQuestion } = data;
 
     const handleAnswerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setAnswer(event.target.value);
@@ -21,8 +20,12 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "" }) => {
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        state.setCurrentQuestion(state.currentQuestion + 1);
-        alert(`Вы выбрали ответ: ${answer}`);
+        if (state.data.data.length - 1 === state.currentQuestion) {
+            alert(`Вы выбрали ответ: ${answer}` + "Вопросы закончились");
+        } else {
+            state.setCurrentQuestion(state.currentQuestion + 1);
+            alert(`Вы выбрали ответ: ${answer}`);
+        }
     };
 
     return (

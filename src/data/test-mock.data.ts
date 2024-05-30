@@ -1,18 +1,4 @@
-export enum questionTypes { oneChoice = "one choice" }
-
-export type question = {
-    type: questionTypes,
-    data: {
-        question: string,
-        choices: string[],
-    }
-
-}
-
-export type testData = {
-    time: string,
-    data: question[],
-}
+import { testData, questionTypes } from "../types/tests.types";
 
 export const testMockData: testData = {
     //todo maybe change min to sec

@@ -16,9 +16,9 @@ function App() {
   return (
     <>
       <QuestionsProvider>
+        {!isStarted && !isTestFinished && <TestDescription handler={handleStartTest} />}
         {isStarted && !isTestFinished && <TestForm isStarted={isStarted} setIsStarted={setIsStarted} setIsTestFinished={setIsTestFinished} />}
         {isTestFinished && <TestFinish />}
-        {!isStarted && !isTestFinished && <TestDescription handler={handleStartTest} />}
       </QuestionsProvider>
     </>
   );

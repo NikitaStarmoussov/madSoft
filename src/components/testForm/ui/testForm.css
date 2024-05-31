@@ -1,0 +1,13 @@
+.test-form{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: start;
+}
+.test-form__header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}

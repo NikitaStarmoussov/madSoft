@@ -1,9 +1,11 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState } from 'react';
 import { classNames } from '../../../utils/classNames';
-
+import "./testForm.css"
 import { TestQuestion } from '../../testQuestion/';
 import { QuestionsContext } from '../../../providers/questionsContext';
-import { formatTime } from '../../../utils/formatTime';
+import { TestTimer } from '../../testTimer';
+import { TestFinish } from '../../testFinish';
+import { TestProgress } from '../../testProgress';
 
 interface TestFormProps {
     className?: string;
@@ -17,9 +19,7 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "", isStarted, s
     const state = useContext(QuestionsContext);
     const [answer, setAnswer] = useState("");
     //todo number check and correct data
-    const startTime = new Date().getTime()
-    const timeLimit = Number(state.data.time) * 60
-    const [timeLeft, setTimeLeft] = useState(timeLimit); // 15 минут в секундах
+    // 15 минут в секундах
 
     const handleAnswerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         //todo add correct save  and diff logic
@@ -31,7 +31,6 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "", isStarted, s
         event.preventDefault();
         state.setUserAnswers([...state.userAnswers, { question: question, answer: answer }]);
         if (state.data.data.length - 1 === state.currentQuestion) {
-            console.log(state.userAnswers)
             setIsTestFinished(true);
             setIsStarted(false);
         } else {
@@ -40,46 +39,20 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "", isStarted, s
     };
 
 
-    //todo timer logic and ui to another component
-    useEffect(() => {
-        if (isStarted) {
-            const timer = setInterval(() => {
-                const timeNow = new Date().getTime();
-                setTimeLeft(() => {
-                    return timeLimit - Math.round((timeNow - startTime) / 1000);
-                });
-            }, 1000);
-
-            return () => {
-                clearInterval(timer);
-            };
-        }
-    }, [isStarted]);
-
-    useEffect(() => {
-        if (timeLeft === 0) {
-            //todo add correct test finish
-            alert("Тест закончен");
-            setIsStarted(false);
-        }
-    }, [timeLeft]);
 
 
 
     return (
         <>
-
-
-            <div>
-                <p>Осталось времени: {formatTime(timeLeft)}</p>
-                <form className={classNames("", {}, [className])} onSubmit={handleSubmit}>
-                    <h1>Тест "название"</h1>
-                    <h2>Вопрос {state.currentQuestion + 1}</h2>
-                    <TestQuestion handleAnswerChange={handleAnswerChange} />
-                    <button type="submit">Ответить</button>
-                </form>
-            </div>
-
+            <form className={classNames("test-form", {}, [className])} onSubmit={handleSubmit}>
+                <header className='test-form__header'>
+                    <h1>Тестирование</h1>
+                    <TestTimer isStarted={isStarted} setIsStarted={setIsStarted} />
+                </header>
+                <TestProgress/>
+                <TestQuestion handleAnswerChange={handleAnswerChange} />
+                <button type="submit">Ответить</button>
+            </form>
         </>
     );
 };

@@ -8,9 +8,9 @@ interface MultipleChoiceProps {
 }
 
 export const MultipleChoice: FC<MultipleChoiceProps> = ({ handler, choice }) => {
-    return <>
+    return <li>
         <input type="checkbox" name="answer" value={choice} onChange={handler} />
         <label htmlFor="answer1">{choice}</label>
-    </>
+    </li>
 
 }

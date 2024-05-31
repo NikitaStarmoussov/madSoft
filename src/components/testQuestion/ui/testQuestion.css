@@ -1,0 +1,10 @@
+.test-question{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.test-question__answers{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

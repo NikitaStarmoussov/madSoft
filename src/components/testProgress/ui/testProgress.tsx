@@ -11,11 +11,9 @@ interface TestProgressProps {
 export const TestProgress: FC<TestProgressProps> = ({ className = "" }) => {
     const state = useContext(QuestionsContext);
     const currentQuestion = state.currentQuestion;
-    const totalQuestions = state.data.data.length;
-    // <h2>Вопрос {state.currentQuestion + 1}</h2>
-    // return <div className={classNames("", {}, [className])}>{currentQuestion}{totalQuestions}</div>
-    return <ul>
-        {state.data.data.map((data, index) => <li key={data.type} className={classNames("", { active: currentQuestion >= index },)}>{currentQuestion}/{totalQuestions}</li>)
+
+    return <ul className={classNames("test-progress", {}, [className])}>
+        {state.data.data.map((data, index) => <li key={data.type} className={classNames("test-progress__item", { active: currentQuestion === index, completed: currentQuestion > index },)}></li>)
         }
     </ul >
 }

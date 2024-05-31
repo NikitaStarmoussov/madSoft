@@ -3,6 +3,7 @@ import { classNames } from '../../../utils/classNames';
 
 import { TestQuestion } from '../../testQuestion/';
 import { QuestionsContext } from '../../../providers/questionsContext';
+import { formatTime } from '../../../utils/formatTime';
 
 interface TestFormProps {
     className?: string;
@@ -63,12 +64,7 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "", isStarted, s
         }
     }, [timeLeft]);
 
-    const formatTime = (time: number) => {
-        const hours = Math.floor(time / 3600);
-        const minutes = Math.floor((time % 3600) / 60);
-        const seconds = time % 60;
-        return `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
-    };
+
 
     return (
         <>

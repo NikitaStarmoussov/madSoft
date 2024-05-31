@@ -1,20 +1,20 @@
 import { FC, useContext } from 'react'
-import { classNames } from '../../../utils/classNames'
 import { questionTypes } from '../../../types/tests.types'
 import { ShortTextAnswer } from './shortTextAnswer/shortTextAnswer'
 import { MultipleChoiceList } from './multipleChoiceList/multipleChoiceList'
 import { OneChoiceList } from './oneChoiceList/oneChoiceList'
 import { QuestionsContext } from '../../../providers/questionsContext'
+import { LongTextAnswer } from './longTextAnswer/longTextAnswer'
 
 
 interface TestChoiceProps {
-    handler: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    handler: (event: React.ChangeEvent) => void,
     className?: string
 }
 
 
 
-function getChoiceComponentByType(handler: (event: React.ChangeEvent<HTMLInputElement>) => void) {
+function getChoiceComponentByType(handler: (event: React.ChangeEvent) => void) {
     const data = useContext(QuestionsContext);
     //todo refactor this
     const curData = data.data.data[data.currentQuestion];
@@ -29,14 +29,11 @@ function getChoiceComponentByType(handler: (event: React.ChangeEvent<HTMLInputEl
         case questionTypes.shortTextAnswer:
             return <ShortTextAnswer handler={handler} />
         case questionTypes.longTextAnswer:
-            //todo add long text component
-            return <ShortTextAnswer handler={handler} />
+            return <LongTextAnswer handler={handler} />
     }
 }
 
-export const TestChoice: FC<TestChoiceProps> = ({ handler, className = "" }) => {
+export const TestChoice: FC<TestChoiceProps> = ({ handler }) => {
     const choiceComponent = getChoiceComponentByType(handler)
-    return <li className={classNames("", {}, [className])} >
-        {choiceComponent}
-    </li>
+    return choiceComponent
 }

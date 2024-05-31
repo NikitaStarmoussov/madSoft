@@ -9,9 +9,9 @@ interface OneChoiceProps {
 }
 
 export const OneChoice: FC<OneChoiceProps> = ({ handler, choice, className = "" }) => {
-    return <>
+    return <li>
         <input className={classNames("", {}, [className])} type="radio" name="answer" value={choice} onChange={handler} />
         <label htmlFor="answer1">{choice}</label>
-    </>
+    </li>
 
 }

@@ -25,20 +25,14 @@ export const testMockData: testData = {
                 choices: ["a", "b", "c", "d"],
             }
         },
-        // {
-        //     type: questionTypes.oneChoice,
-        //     data: {
-        //         question: "question 4",
-        //         choices: ["a", "b", "c", "d"],
-        //     }
-        // },
-        // {
-        //     type: questionTypes.oneChoice,
-        //     data: {
-        //         question: "question 5",
-        //         choices: ["a", "b", "c", "d"],
-        //     }
-        // }
+        {
+            type: questionTypes.longTextAnswer,
+            data: {
+                question: "question 4",
+                choices: null,
+            }
+        },
+
     ]
 
 }

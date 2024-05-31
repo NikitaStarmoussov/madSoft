@@ -21,6 +21,7 @@ export const TestForm: React.FC<TestFormProps> = ({ className = "", isStarted, s
     const [timeLeft, setTimeLeft] = useState(timeLimit); // 15 минут в секундах
 
     const handleAnswerChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        //todo add correct save  and diff logic
         setAnswer(event.target.value);
     };
 
